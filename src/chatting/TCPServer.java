@@ -11,10 +11,10 @@ public class TCPServer {
 		while(true) {
 			Socket connectionSocket=welcomeSocket.accept();
 			BufferedReader inFromClient=new BufferedReader(new InputStreamReader(connectionSocket.getInputStream()));
-			PrintWriter outToClient=new PrintWriter(connectionSocket.getOutputStream());
+			DataOutputStream outToClient=new DataOutputStream(connectionSocket.getOutputStream());
 			clientSentence=inFromClient.readLine();
 			capitalizedSentence=clientSentence.toUpperCase();
-			outToClient.write(capitalizedSentence);
+			outToClient.writeUTF(capitalizedSentence);
 		}
 	}
 

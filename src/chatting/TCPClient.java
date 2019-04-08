@@ -11,12 +11,14 @@ public class TCPClient {
 		InetAddress address=InetAddress.getLocalHost();
 		String sentence;
 		String modifiedSentence;
+		System.out.println("enter a string");
 		BufferedReader inFromUser=new BufferedReader(new InputStreamReader(System.in));
-		Socket clientSocket = new Socket(address, 5830);
-		DataOutputStream outToServer=new DataOutputStream(clientSocket.getOutputStream());
-		BufferedReader inFromServer =new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
 		sentence=inFromUser.readLine();
-		outToServer.writeUTF(sentence+"\n");
+		Socket clientSocket = new Socket("127.0.0.1", 5071);
+		PrintWriter outToServer=new PrintWriter(clientSocket.getOutputStream(),true);
+		outToServer.write(sentence+"\n");
+		BufferedReader inFromServer =new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
+		System.out.println(sentence);
 		modifiedSentence=inFromServer.readLine();
 		System.out.println("From Server : "+modifiedSentence);
 		clientSocket.close();

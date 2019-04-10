@@ -14,15 +14,16 @@ public class TCPServer {
 		BufferedReader inFromClient=new BufferedReader(new InputStreamReader(connectionSocket.getInputStream()));
 		//System.out.println("connected");
 		while(true) {
-			
-			clientSentence=inFromClient.readLine();
-			if(clientSentence!=null) {
-				if(clientSentence.equals("end"))
-					break;
-				DataOutputStream outToClient = new DataOutputStream(connectionSocket.getOutputStream());;
-				capitalizedSentence=clientSentence.toUpperCase()+"\n";
-				//System.out.println(capitalizedSentence);
-				outToClient.writeBytes(capitalizedSentence);
+			if(inFromClient.ready()) {
+				clientSentence=inFromClient.readLine();
+				if(clientSentence!=null) {
+					if(clientSentence.equals("end"))
+						break;
+					DataOutputStream outToClient = new DataOutputStream(connectionSocket.getOutputStream());;
+					capitalizedSentence=clientSentence.toUpperCase()+"\n";
+					//System.out.println(capitalizedSentence);
+					outToClient.writeBytes(capitalizedSentence);
+				}
 			}
 		}
 	}

@@ -1,12 +1,16 @@
-package Milestone1;
-import java.io.*;
-import java.net.*;
+package Milestone2;
 
-public class TCPClient {
+import java.io.BufferedReader;
+import java.io.DataOutputStream;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.net.InetAddress;
+import java.net.Socket;
+import java.net.UnknownHostException;
 
-	public TCPClient() {
-		
-	}
+public class Client {
+
+		// TODO Auto-generated constructor stub
 	public static void main(String[] args) throws UnknownHostException, IOException {
 		InetAddress address=InetAddress.getLocalHost();
 		Socket clientSocket = new Socket(address, 5000);

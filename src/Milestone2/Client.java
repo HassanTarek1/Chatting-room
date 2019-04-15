@@ -19,15 +19,21 @@ public class Client {
 		System.out.println("enter a string");
 		BufferedReader inFromUser=new BufferedReader(new InputStreamReader(System.in));
 		
-		while(!sentence.equals("end")){
-			sentence=inFromUser.readLine();
-			DataOutputStream outToServer=new DataOutputStream(clientSocket.getOutputStream());
-			outToServer.writeBytes(sentence+"\n");
+		while(true){
+			if(inFromUser.ready()) {
+				sentence=inFromUser.readLine();
+				DataOutputStream outToServer=new DataOutputStream(clientSocket.getOutputStream());
+				if(sentence!=null)
+					outToServer.writeBytes(sentence+"\n");
+			}
 			BufferedReader inFromServer =new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
-			modifiedSentence=inFromServer.readLine();
-			System.out.println("From Server : "+modifiedSentence);
+			if(inFromServer.ready()) {
+				modifiedSentence=inFromServer.readLine();
+				if(modifiedSentence!=null)
+					System.out.println("From Server : "+modifiedSentence);
+			}
 		}
-		clientSocket.close();
+		
 	}
 
 }

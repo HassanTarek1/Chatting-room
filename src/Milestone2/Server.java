@@ -15,25 +15,37 @@ public class Server {
 		String clientSentence=inFromClient.readLine();
 		String returnSentence;
 		boolean available=false;
+		DataOutputStream outToClient = new DataOutputStream(connectionSocket.getOutputStream());
 		if(clientSentence.equals("CONNECT")) {
 			available=true;
-			DataOutputStream outToClient = new DataOutputStream(connectionSocket.getOutputStream());;
 			outToClient.writeBytes("connected"+"\n");
 		}
 		
 		
-		while(available) {
-			if(inFromClient.ready()) {
-				clientSentence=inFromClient.readLine();
-				if(clientSentence!=null) {
-					System.out.println("From Client : "+clientSentence);
-					if(connectionSocket!=null) {
-					BufferedReader inServer=new BufferedReader(new InputStreamReader(System.in));
-					DataOutputStream outToClient = new DataOutputStream(connectionSocket.getOutputStream());;
-					returnSentence=inServer.readLine()+"\n";
-					outToClient.writeBytes(returnSentence);
+		while(true) {
+			if(available) {
+				if(inFromClient.ready()) {
+					clientSentence=inFromClient.readLine();
+					if(clientSentence!=null) {
+						System.out.println("From Client : "+clientSentence);
+						if(connectionSocket!=null) {
+							BufferedReader inServer=new BufferedReader(new InputStreamReader(System.in));
+							outToClient = new DataOutputStream(connectionSocket.getOutputStream());;
+							returnSentence=inServer.readLine()+"\n";
+							outToClient.writeBytes(returnSentence);
+						}
 					}
 				}
+			}
+			else {
+				if(inFromClient.ready()) {
+					clientSentence=inFromClient.readLine();
+					if(clientSentence.equals("CONNECT")) {
+						outToClient.writeBytes("connected"+"\n");
+						available=true;
+					}
+				}
+					
 			}
 		}
 	}

@@ -44,8 +44,7 @@ public class Server {
 						outToClient.writeBytes("connected"+"\n");
 						available=true;
 					}
-				}
-					
+				}	
 			}
 		}
 	}

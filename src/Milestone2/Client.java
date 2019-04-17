@@ -13,7 +13,7 @@ public class Client {
 		// TODO Auto-generated constructor stub
 	public static void main(String[] args) throws UnknownHostException, IOException {
 		InetAddress address=InetAddress.getLocalHost();
-		Socket clientSocket = new Socket(address, 5000);
+		Socket clientSocket = new Socket("192.168.1.5", 5000);
 		String sentence="";
 		String modifiedSentence;
 		System.out.println("enter a string");

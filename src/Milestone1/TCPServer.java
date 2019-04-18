@@ -9,7 +9,7 @@ public class TCPServer {
 	public static void main(String[] args) throws Exception {
 		String clientSentence;
 		String capitalizedSentence;
-		ServerSocket welcomeSocket=new ServerSocket(5000);
+		ServerSocket welcomeSocket=new ServerSocket(1596);
 		Socket connectionSocket=welcomeSocket.accept();
 		BufferedReader inFromClient=new BufferedReader(new InputStreamReader(connectionSocket.getInputStream()));
 		//System.out.println("connected");
@@ -17,12 +17,9 @@ public class TCPServer {
 			if(inFromClient.ready()) {
 				clientSentence=inFromClient.readLine();
 				if(clientSentence!=null) {
-					if(clientSentence.equals("end"))
-						break;
 					DataOutputStream outToClient = new DataOutputStream(connectionSocket.getOutputStream());;
 					capitalizedSentence=clientSentence.toUpperCase()+"\n";
-					//System.out.println(capitalizedSentence);
-					outToClient.writeBytes(capitalizedSentence);
+					outToClient.writeBytes("Connection Denied"+"\n");
 				}
 			}
 		}

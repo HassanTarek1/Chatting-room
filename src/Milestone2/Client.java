@@ -13,20 +13,21 @@ public class Client {
 		// TODO Auto-generated constructor stub
 	public static void main(String[] args) throws UnknownHostException, IOException {
 		InetAddress address=InetAddress.getLocalHost();
-		Socket clientSocket = new Socket("192.168.1.5", 5000);
+		Socket clientSocket = new Socket(address, 5000);
 		String sentence="";
-		String modifiedSentence;
+		String modifiedSentence = null;
 		System.out.println("enter a string");
 		BufferedReader inFromUser=new BufferedReader(new InputStreamReader(System.in));
-		
+		BufferedReader inFromServer =new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
 		while(true){
 			if(inFromUser.ready()) {
+				inFromUser=new BufferedReader(new InputStreamReader(System.in));
 				sentence=inFromUser.readLine();
 				DataOutputStream outToServer=new DataOutputStream(clientSocket.getOutputStream());
 				if(sentence!=null)
-					outToServer.writeBytes(sentence+"\n");
+				outToServer.writeBytes(sentence+"\n");
 			}
-			BufferedReader inFromServer =new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
+			
 			if(inFromServer.ready()) {
 				modifiedSentence=inFromServer.readLine();
 				if(modifiedSentence!=null)

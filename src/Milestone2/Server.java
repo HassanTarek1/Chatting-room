@@ -13,9 +13,11 @@ public class Server {
 		Socket connectionSocket=welcomeSocket.accept();
 		BufferedReader inFromClient=new BufferedReader(new InputStreamReader(connectionSocket.getInputStream()));
 		String clientSentence=inFromClient.readLine();
+		DataOutputStream outToClient = new DataOutputStream(connectionSocket.getOutputStream());
+
 		String returnSentence;
 		boolean available=false;
-		DataOutputStream outToClient = new DataOutputStream(connectionSocket.getOutputStream());
+		BufferedReader inServer=new BufferedReader(new InputStreamReader(System.in));
 		if(clientSentence.equals("CONNECT")) {
 			available=true;
 			outToClient.writeBytes("connected"+"\n");
@@ -28,13 +30,11 @@ public class Server {
 					clientSentence=inFromClient.readLine();
 					if(clientSentence!=null) {
 						System.out.println("From Client : "+clientSentence);
-						if(connectionSocket!=null) {
-							BufferedReader inServer=new BufferedReader(new InputStreamReader(System.in));
-							outToClient = new DataOutputStream(connectionSocket.getOutputStream());;
-							returnSentence=inServer.readLine()+"\n";
-							outToClient.writeBytes(returnSentence);
-						}
 					}
+				}
+				if(inServer.ready()) {
+					returnSentence=inServer.readLine();
+					outToClient.writeBytes(returnSentence+"\n");
 				}
 			}
 			else {

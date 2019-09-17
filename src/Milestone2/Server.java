@@ -10,43 +10,21 @@ public class Server {
 
 	public static void main(String[] args) throws Exception {
 		ServerSocket welcomeSocket=new ServerSocket(5000);
+		String clientSentence = "";
+		String capitalisedSentence;
 		Socket connectionSocket=welcomeSocket.accept();
-		BufferedReader inFromClient=new BufferedReader(new InputStreamReader(connectionSocket.getInputStream()));
-		String clientSentence=inFromClient.readLine();
-		DataOutputStream outToClient = new DataOutputStream(connectionSocket.getOutputStream());
 
-		String returnSentence;
-		boolean available=false;
-		BufferedReader inServer=new BufferedReader(new InputStreamReader(System.in));
-		if(clientSentence.equals("CONNECT")) {
-			available=true;
-			outToClient.writeBytes("connected"+"\n");
-		}
-		
-		
 		while(true) {
-			if(available) {
-				if(inFromClient.ready()) {
-					clientSentence=inFromClient.readLine();
-					if(clientSentence!=null) {
-						System.out.println("From Client : "+clientSentence);
-					}
-				}
-				if(inServer.ready()) {
-					returnSentence=inServer.readLine();
-					outToClient.writeBytes(returnSentence+"\n");
-				}
+			BufferedReader inFromClient=new BufferedReader(new InputStreamReader(connectionSocket.getInputStream()));
+			DataOutputStream outToClient = new DataOutputStream(connectionSocket.getOutputStream());
+			clientSentence=inFromClient.readLine();
+			if(!clientSentence.equals("close socket")) {
+				capitalisedSentence=clientSentence.toUpperCase();
+				outToClient.writeBytes(capitalisedSentence+"\n");
 			}
 			else {
-				if(inFromClient.ready()) {
-					clientSentence=inFromClient.readLine();
-					if(clientSentence.equals("CONNECT")) {
-						outToClient.writeBytes("connected"+"\n");
-						available=true;
-					}
-				}	
+				connectionSocket=welcomeSocket.accept();
 			}
 		}
 	}
-
 }

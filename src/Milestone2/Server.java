@@ -18,7 +18,7 @@ public class Server {
 			BufferedReader inFromClient=new BufferedReader(new InputStreamReader(connectionSocket.getInputStream()));
 			DataOutputStream outToClient = new DataOutputStream(connectionSocket.getOutputStream());
 			clientSentence=inFromClient.readLine();
-			if(!clientSentence.equals("close socket")) {
+			if(!clientSentence.toLowerCase().equals("close socket")) {
 				capitalisedSentence=clientSentence.toUpperCase();
 				outToClient.writeBytes(capitalisedSentence+"\n");
 			}

@@ -43,7 +43,7 @@ public class ClientThread  extends Thread{
 
 						if(clientSentence.equalsIgnoreCase("Close Socket"))
 						{
-							System.out.println("Connection Socket between the server and client is closed");
+							System.out.println("Connection Socket between the server and client number "+this.getId()+" is closed");
 							System.out.println("===============================================");
 							System.out.println("Server is Still Running......");
 							break;

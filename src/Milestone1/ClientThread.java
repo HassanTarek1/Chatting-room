@@ -10,18 +10,22 @@ import java.net.UnknownHostException;
 
 public class ClientThread  extends Thread{
 	private Socket connectionSocket;
+	private int id;
 	
-	public ClientThread(Socket connectionSocket) {
-		this.connectionSocket=connectionSocket;		
+	public ClientThread(Socket connectionSocket,int id) {
+		this.connectionSocket=connectionSocket;	
+		this.id=id;
 	}
 
 	public Socket getConnectionSocket() {
 		return connectionSocket;
 	}
+	
 
+	
 	public void run() {
 		try {
-			System.out.println("Client : "+this.getId()+"  is connected");
+			System.out.println("Client : "+this.id+"  is connected");
 			String clientSentence; 
 			String capitalizedSentence; 
 			while(true) { 

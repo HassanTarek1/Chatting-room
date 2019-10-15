@@ -15,10 +15,12 @@ public class Server {
 		String capitalisedSentence;
 		ArrayList<ClientThread> arr = new ArrayList<ClientThread>();
 		System.out.println("Waiting for connection");
+		int id=1;
 		while(true) {
 			Socket connectionSocket=welcomeSocket.accept();
-			ClientThread client = new ClientThread(connectionSocket);
+			ClientThread client = new ClientThread(connectionSocket,id);
 			client.start();
+			id++;
 			arr.add(client);
 		}
 		

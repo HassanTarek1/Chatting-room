@@ -16,7 +16,7 @@ public class Client {
 
 		BufferedReader inFromUser = 
 				new BufferedReader(new InputStreamReader(System.in)); 
-		Socket clientSocket = new Socket("localhost", 5000);
+		Socket clientSocket = new Socket("localhost", 17345);
 
 		DataOutputStream outToServer = 
 				new DataOutputStream(clientSocket.getOutputStream()); 

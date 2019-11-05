@@ -12,7 +12,7 @@ class TCP_Server{
 		System.out.println("Server is ON......");
 		int ID = 1;
 		
-		ServerSocket welcomeSocket = new ServerSocket(5000); 
+		ServerSocket welcomeSocket = new ServerSocket(17345); 
 
 		while(true) { 
 			System.out.println("Waiting for a new connection......");

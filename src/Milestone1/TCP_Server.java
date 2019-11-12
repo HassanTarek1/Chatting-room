@@ -1,12 +1,11 @@
 package Milestone1;
 
 import java.net.*;
-import java.util.LinkedList;
+import java.util.ArrayList;
 
 
 class TCP_Server{ 
-	static LinkedList clients = new LinkedList ();
-	
+	static ArrayList clients = new ArrayList<>();
 	public static void main(String argv[]) throws Exception 
 	{ 
 		System.out.println("Server is ON......");
